@@ -1,8 +1,12 @@
 <script lang="ts">
+import { page } from "$app/stores";
+
 import { faFlag, faStar } from "@fortawesome/free-solid-svg-icons/index.es";
+import { onMount } from "svelte";
+
 
     import Fa from "svelte-fa/src/fa.svelte"
-import Card from "../../components/micro/Card.svelte"
+    import Card from "../../components/micro/Card.svelte"
     
     interface ingredient {
         name : string,
@@ -27,29 +31,36 @@ import Card from "../../components/micro/Card.svelte"
 
     let ingredients : ingredient[] = [{
         name : "Singha",
-        path : "liquors/singha.png",
+        path : "/liquors/singha.png",
         category : "Beer"
     },{
         name : "Singha",
-        path : "liquors/singha.png",
+        path : "/liquors/singha.png",
         category : "Beer"
     },{
         name : "Singha",
-        path : "liquors/singha.png",
+        path : "/liquors/singha.png",
         category : "Beer"
     },{
         name : "Singha",
-        path : "liquors/singha.png",
+        path : "/liquors/singha.png",
         category : "Beer"
     },]
 
     let selectedTags : string[] = []
 
     let comment : string = ""
+    let points = 4
 
-    function handleSubmit () {
-        
-    }
+    onMount( async () => {
+        const res = await fetch('/api/ingredient.json', {
+            method : "POST",
+            body : {
+                amount : $page.params.amount
+            }
+        })
+
+    })
 
 </script>
 <div class="w-full min-h-screen flex flex-around gap-x-16 pt-12 px-12">
@@ -63,12 +74,12 @@ import Card from "../../components/micro/Card.svelte"
             <h5>
                 Stars
             </h5>
-            <div class="flex justify-start items-center w-full mb-8 mt-4 text-primary cursor-pointer">
-                <Fa icon={faStar} class="text-5xl" />
-                <Fa icon={faStar} class="text-5xl" />
-                <Fa icon={faStar} class="text-5xl" />
-                <Fa icon={faStar} class="text-5xl" />
-                <Fa icon={faStar} class="text-5xl" />
+            <div class="cursor-pointer flex justify-start items-center w-full my-6 text-primary">
+                <div on:click={ () => points = 1}><Fa icon={faStar} class={`text-5xl ${points >= 1 ? "" : "opacity-30"}`}  /></div>
+                <div on:click={ () => points = 2}><Fa icon={faStar} class={`text-5xl ${points >= 2 ? "" : "opacity-30"}`}  /></div>
+                <div on:click={ () => points = 3}><Fa icon={faStar} class={`text-5xl ${points >= 3 ? "" : "opacity-30"}`}  /></div>
+                <div on:click={ () => points = 4}><Fa icon={faStar} class={`text-5xl ${points >= 4 ? "" : "opacity-30"}`}  /></div>
+                <div on:click={ () => points = 5}><Fa icon={faStar} class={`text-5xl ${points >= 5 ? "" : "opacity-30"}`} /></div>
 
             </div>
         </div>
