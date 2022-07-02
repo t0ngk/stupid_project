@@ -9,3 +9,8 @@ declare namespace App {
 	// interface Session {}
 	// interface Stuff {}
 }
+
+declare module '@fontawsome/free-solid-svg-icons/index.es' {
+	export * from '@fontawsome/free-solid-svg-icons/';
+}
+
