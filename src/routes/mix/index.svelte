@@ -1,0 +1,43 @@
+<script>
+    let num = 3
+</script>
+
+<div class="flex flex-col items-center justify-center w-full h-screen gap-y-6">
+    <h5>
+        Number of ingredients you desire
+    </h5>
+    <div class="flex flex-center items-center gap-x-2">
+        <input type="number" min={2} max={4} bind:value={num} class="border-primary border-2 rounded-xl text-3xl font-medium text-center max-w-[64px] py-2">
+        <div class="flex flex-col items-center justify-center">
+            <div on:click={ () => {
+                if (num >= 4) return
+                num++
+            }}>
+                Up
+            </div>
+            <div on:click={ () => {
+                if (num <= 2) return
+                num--
+            }}>
+                Down
+            </div>
+        </div>
+    </div>
+    <button class="btn btn-primary px-36 text-white py-2 rounded-xl capitalize font-normal">
+        Mix
+    </button>   
+</div>
+
+<style scoped>
+    /* Chrome, Safari, Edge, Opera */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+    }
+
+    /* Firefox */
+    input[type=number] {
+    -moz-appearance: textfield;
+    }
+</style>

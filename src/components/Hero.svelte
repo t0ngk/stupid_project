@@ -1,4 +1,6 @@
 <script lang="ts">
+import { goto } from '$app/navigation';
+
 	import hero from '$lib/assets/hero.png';
 </script>
 
@@ -14,8 +16,8 @@
 		</p>
 	</div>
 	<div class="w-56 flex flex-col items-center text-center gap-y-2 z-10">
-		<button class="py-2 w-full text-white bg-primary rounded-lg"> Mix </button>
-		<button class="py-2 w-full text-primary bg-blue-200 grid place-items-center rounded-lg">
+		<button on:click={ () => goto('/mix')} class="py-2 w-full text-white bg-primary rounded-lg"> Mix </button>
+		<button on:click={ () => goto('/browse')} class="py-2 w-full text-primary bg-blue-200 grid place-items-center rounded-lg">
 			Browse
 		</button>
 	</div>
