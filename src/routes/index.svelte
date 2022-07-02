@@ -1,8 +1,7 @@
 <script lang="ts">
-	import SveltyPicker from 'svelty-picker/src/SveltyPicker.svelte';
 	import Fa from 'svelte-fa/src/fa.svelte';
 	import { faCalendarDays } from '@fortawesome/free-solid-svg-icons/index.es';
-	let myDate = 'DD / MM / YYYY';
+	let myDate = "";
 </script>
 
 <div class="h-screen w-screen bg-black flex justify-center items-center overflow-hidden">
@@ -14,9 +13,9 @@
 		</p>
 		<div class="outline outline-1 outline-white h-12 w-60 rounded-xl flex overflow-hidden">
 			<div class="h-full flex items-center justify-center w-1/5">
-				<Fa icon={faCalendarDays} color="white" size="2x"/>
+				<Fa icon={faCalendarDays} color="white" size="1x"/>
 			</div>
-			<input class="bg-transparent text-white w-4/5 text-lg text-center" bind:value={myDate} type="text" name="" id="">
+			<input class="bg-transparent text-white w-4/5 text-lg text-center" bind:value={myDate} type="date" name="" id="">
 		</div>
 	</div>
 </div>
