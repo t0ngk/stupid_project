@@ -3,7 +3,7 @@ import { page } from "$app/stores";
 import { onMount } from "svelte";
 
   import "../app.css";
-import Navbar from "../components/micro/Navbar.svelte";
+import Navbar from "$lib/components/micro/Navbar.svelte";
 
   let enableNavbar : boolean = false
 
