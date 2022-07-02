@@ -3,7 +3,7 @@
     // export const list:any = [];
     import { onMount } from "svelte";
 
-    import Card from "./micro/Card.svelte";
+    import Card from "$lib/components/micro/Card.svelte";
 
     interface ingredient {
         _id : any,
