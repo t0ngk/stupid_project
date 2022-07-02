@@ -1,9 +1,13 @@
-<div class="w-full h-screen flex flex-col justify-around items-center py-12">
+<script>
+	let username;
+</script>
+
+<div class="w-full h-screen flex flex-col justify-around items-center py-12 bg-white">
 	<div class="flex flex-col items-center text-center">
 		<h1 class="text-6xl font-semibold my-4">Tell us who you are</h1>
 		<p class="leading-5">
-			By signing in, others will know who you are,<br />
-			allowing indiviuals to hunt you down due to your opinions.
+			By signing up, meanas you're surrendering your personal information to us.<br />
+			You accept anything that may happen from now on. You're warned.
 		</p>
 	</div>
 	<div class="flex flex-col w-96 gap-y-4">
@@ -15,7 +19,7 @@
 			/>
 		</div>
 		<div class="flex flex-col ">
-			<span class="text-sm">Password</span>
+			<span class="text-sm">Back for more?</span>
 			<input
 				type="password"
 				class="px-4 py-2 border-2 border-primary rounded-lg focus:outline-primary focus:outline-double cursor-pointer"
@@ -23,10 +27,12 @@
 		</div>
 		<div class="flex flex-col gap-y-2">
 			<div class="w-full py-3 bg-primary rounded-lg grid place-items-center cursor-pointer">
-				<h1 class="text-white text-lg font-semibold">Sign in</h1>
+				<h1 class="text-white text-lg font-semibold">Sign up</h1>
 			</div>
-			<span class="text-primary underline text-sm text-center inline-block w-full cursor-pointer"
-				>Don't have an account?</span
+			<a
+				href="/signin"
+				class="text-primary underline text-sm text-center inline-block w-full cursor-pointer"
+				>Already has an account have an account?</a
 			>
 		</div>
 	</div>

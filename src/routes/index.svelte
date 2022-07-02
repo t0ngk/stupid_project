@@ -18,7 +18,7 @@
 		if (currentDate.getTime() - birth?.getTime() > unixNeeded) {
 			// Above 20
 			localStorage.setItem('agePass', 'true');
-			goto('/login');
+			goto('/signup');
 		} else {
 			// Younger than 20
 			localStorage.setItem('agePass', 'false');
