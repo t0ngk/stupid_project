@@ -1,7 +1,14 @@
 <script lang="ts">
     import Fa from 'svelte-fa/src/fa.svelte';
     import { faSortUp, faSortDown } from '@fortawesome/free-solid-svg-icons/index.es';
-    let num = 3;
+    import { goto } from '$app/navigation';
+    let num = 3
+    async function mix() {
+        console.log('mixxings')
+        // const res = await fetch('/api/ingredient')
+        // console.log(await res.json())
+        goto(`/comment/${num}`)
+    }
 </script>
 
 <div class="flex flex-col items-center justify-center w-full h-screen gap-y-6">
