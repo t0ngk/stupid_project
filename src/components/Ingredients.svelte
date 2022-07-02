@@ -1,8 +1,6 @@
 <script lang="ts">
     import { onMount } from "svelte";
 
-    import Card from "./micro/Card.svelte";
-
     interface ingredient {
         _id : any,
         name : string,
@@ -33,12 +31,17 @@
         Ingredients
     </h1>
     <!-- Categories -->
-    <div class="w-full flex flex-wrap gap-x-4 gap-y-6 mb-12">
+    <div class="w-full flex flex-wrap gap-x-4 gap-y-2 mb-12">
         {#each categories as category}
             <button on:click={ () => {
-                filterCategories = [...filterCategories, category]
-            }} class={`${filterCategories.includes(category) ? "rounded-full bg-primary text-white" : "rounded-full border-2 border-primary text-primary"} px-10`}>
-                {category}
+                if (filterCategories.includes(category)) {
+                    console.log('bruh ')
+                    filterCategories = [...filterCategories.filter( (_) => _ !== category)]
+                } else {
+                    filterCategories = [...filterCategories, category]
+                }
+            }} class={`${!filterCategories.includes(category) ? "rounded-full bg-primary text-white" : "rounded-full text-primary decoration-slice line-through"} px-8 border-2 border-primary`}>
+                {category.replace('_', " ")}
             </button>
         {/each}
     </div>
