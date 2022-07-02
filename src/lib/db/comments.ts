@@ -8,5 +8,5 @@ const commentSchema = new mongoose.Schema({
 	comment_content: String
 });
 
-const CommentModel = new mongoose.Model('Comments', commentSchema);
+const CommentModel = new mongoose.model('Comments', commentSchema);
 export default CommentModel;

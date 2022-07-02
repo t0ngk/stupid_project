@@ -2,6 +2,8 @@ import type { RequestHandler } from '@sveltejs/kit';
 import { customAlphabet } from 'nanoid';
 import Post from '$lib/db/post';
 
+const nanoid = customAlphabet('1234567890abcdef', 10);
+
 export const get: RequestHandler = async () => {
 	const posts = await Post.find({});
 	return {
@@ -14,30 +16,31 @@ export const get: RequestHandler = async () => {
 
 export const post: RequestHandler = async ({ request }) => {
 	const body = await request.json();
-	const nanoid = customAlphabet('1234567890abcdef', 10);
+	const { post_name, ingredients, post_by } = body;
 
-	const { review_rating, post_by, review_stars, ingredients, comments } = body;
-
-	if (!review_rating && !post_by && !review_stars && !ingredients && !comments) {
+	if (!ingredients && !post_by) {
 		return {
 			status: 400,
 			body: {
-				message: 'Missing some required information, please try again!'
+				message: 'Missing some required information.'
 			}
 		};
 	}
 
-	let id = nanoid(8);
-	while (await Post.find({ id: id })) {
-		id = nanoid(8);
+	let payload = { created_at: new Date(), ...body };
+	let ref_id = nanoid(8);
+
+	while (await Post.findOne({ ref_id: ref_id })) {
+		ref_id = nanoid(8);
 	}
 
-	const payload = {
-		id: nanoid(8),
-		...body
-	};
-	const post = await Post.create(payload);
+	if (!post_name) {
+		payload = { ref_id: ref_id, post_name: ref_id, ...payload };
+	} else {
+		payload = { ref_id: ref_id, ...payload };
+	}
 
+	const post = await Post.create(payload);
 	if (post) {
 		return {
 			status: 200,
@@ -52,35 +55,5 @@ export const post: RequestHandler = async ({ request }) => {
 				message: 'Error!'
 			}
 		};
-	}
-};
-
-export const patch: RequestHandler = async ({ request }) => {
-	const body = await request.json();
-	const { comment, review_rating, id } = body;
-
-	if (!id) {
-		return {
-			status: 400,
-			body: {
-				message: 'Missing post_id in order to find specific post to update.'
-			}
-		};
-	}
-
-	const post = await Post.find({ id: id });
-
-	if (!post) {
-		return {
-			status: 404,
-			body: {
-				message: 'Post ID not found!'
-			}
-		};
-	}
-
-	let payload = {};
-
-	if (comment) {
 	}
 };
