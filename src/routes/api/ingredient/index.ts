@@ -22,9 +22,9 @@ export const get: RequestHandler = async () => {
 
 export const post: RequestHandler = async ({ request }) => {
 	const body = await request.json();
-	const { name, category_id, is_allowed } = body;
+	const { range } = body;
 
-	if (!name && !category_id && !is_allowed) {
+	if (!range) {
 		return {
 			status: 400,
 			body: {
@@ -33,9 +33,17 @@ export const post: RequestHandler = async ({ request }) => {
 		};
 	}
 
-	const ingredient = await Ingredient.create(body);
+	const ingredients = await Ingredient.find({});
+	const result = [];
 
-	if (!ingredient) {
+	for (let i = 0; i < ingredients.length; i++) {
+		if (i === range) {
+			break;
+		}
+		result.push(ingredients[i]);
+	}
+
+	if (!ingredients) {
 		return {
 			status: 500,
 			body: {
@@ -47,7 +55,7 @@ export const post: RequestHandler = async ({ request }) => {
 	return {
 		status: 200,
 		body: {
-			data: ingredient
+			data: result
 		}
 	};
 };
