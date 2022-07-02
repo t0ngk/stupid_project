@@ -9,7 +9,7 @@ interface IComment {
 }
 
 const commentSchema = new mongoose.Schema<IComment>({
-	comment_rating: number,
+	comment_rating: Number,
 	comment_by: String,
 	comment_post_id: String,
 	created_at: Date,

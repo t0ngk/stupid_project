@@ -1,6 +1,12 @@
-import mongoose from 'mongoose';
+import mongoose, { Model } from 'mongoose';
 
-export const ingredientsSchema = new mongoose.Schema({
+interface IIngredient {
+	name: string;
+	category: string;
+	is_allowed: boolean;
+}
+
+export const ingredientsSchema = new mongoose.Schema<IIngredient>({
 	name: String,
 	category: {
 		type: String,
@@ -26,5 +32,5 @@ export const ingredientsSchema = new mongoose.Schema({
 	}
 });
 
-const IngredientsModel = mongoose.model('Ingredients', ingredientsSchema);
+const IngredientsModel: Model<IIngredient> = mongoose.model('Ingredients', ingredientsSchema);
 export default IngredientsModel;
