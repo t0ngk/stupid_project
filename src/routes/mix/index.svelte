@@ -2,8 +2,8 @@
     let num = 3
     async function mix() {
         console.log('mixxings')
-        const res = await fetch('/api/ingredients')
-        console.log(res)
+        const res = await fetch('/api/ingredient')
+        console.log(await res.json())
     }
 </script>
 

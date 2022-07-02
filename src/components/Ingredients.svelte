@@ -1,9 +1,31 @@
-<script>
-import Card from "./micro/Card.svelte";
+<script lang="ts">
+    import { onMount } from "svelte";
 
-    let test = [{
+    import Card from "./micro/Card.svelte";
 
-    }]
+    interface ingredient {
+        _id : any,
+        name : string,
+        category : string 
+    }
+
+
+    let ingredients : ingredient[] = []
+    let categories : string[] = ['Beer', 'Gin', 'Brandy', 'Whisky', 'Rum', 'Tequila', 'Vodka', 'Liqueur', 'Soju', 'Fruit_Juice', 'Cocktail_Sweetneners', 'Softdrink', 'Misc']
+
+    let
+    let filterCategories : string[] = []
+
+    onMount( async () => {
+        const res = await fetch('/api/ingredient')
+        ingredients = await res.json()
+
+        ingredients.forEach( (ingredient) => {
+            if (categories.includes(ingredient.category)) return
+            categories = [...categories, ingredient.category]
+        })
+    })
+
 </script>
 
 <div class="w-full flex flex-col items-center px-20 lg:px-36">
@@ -13,23 +35,18 @@ import Card from "./micro/Card.svelte";
     </h1>
     <!-- Categories -->
     <div class="w-full flex flex-wrap gap-x-4 gap-y-6 mb-12">
-        <button class="rounded-full border-2 border-primary text-primary px-10">
-            Beer
-        </button>
-        <button class="rounded-full bg-primary text-white px-10">
-            Beer
-        </button>
+        {#each categories as category}
+            <button on:click={ () => {
+                filteredCategories = [...filterCategories, category]
+            }} class={`${filteredCategories.includes(category) ? "rounded-full bg-primary text-white" : "rounded-full border-2 border-primary text-primary"} px-10`}>
+                {category}
+            </button>
+        {/each}
     </div>
     <!-- Cards -->
-        <div class="flex flex-col w-full gap-y-6">
-            <h2 class="text-2xl font-semibold">
-                Beer
-            </h2>
-        <div class="grid grid-cols-3 gap-x-16 px-4">
-            <Card name="Singha" path={'/liquors/singha.png'} />
-            <Card name="Singha" path={'/liquors/singha.png'} />
-            <Card name="Singha" path={'/liquors/singha.png'} />
-        </div>          
+
+            
+
     </div>
 
 </div>
