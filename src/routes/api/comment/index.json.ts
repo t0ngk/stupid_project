@@ -1,6 +1,6 @@
 import type { RequestHandler } from '@sveltejs/kit';
 import Comment from '$lib/db/comments';
-import Post from '$lib/db/Post';
+import Post from '$lib/db/post';
 
 export const post: RequestHandler = async ({ request }) => {
 	const body = await request.json();
