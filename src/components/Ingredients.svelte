@@ -19,7 +19,6 @@ import { onMount } from "svelte";
 
     let filterCategories : string[] = []
 
-    console.log(ingredients)
 
     onMount( async () => {
         const res = await fetch('/api/ingredient')
