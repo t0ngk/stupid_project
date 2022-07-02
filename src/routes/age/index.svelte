@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import dayjs from 'dayjs';
-	import relativeTime from 'dayjs/plugin/relativeTime';
+	import * as dayjs from 'dayjs';
+	import * as relativeTime from 'dayjs/plugin/relativeTime';
 	import { onMount } from 'svelte';
 
 	let age:any = null;
