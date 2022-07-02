@@ -4,6 +4,9 @@ import { onMount } from "svelte";
 
 
     // export const list:any = [];
+
+    import Card from "$lib/components/micro/Card.svelte";
+
     interface ingredient {
         _id : any,
         name : string,
