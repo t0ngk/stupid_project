@@ -1,11 +1,10 @@
-import mongoose from "mongoose";
-const schema = mongoose.Schema;
+import mongoose from 'mongoose';
 
-const ingredientsSchema = new schema({
-  ingredient_name: String,
-  ingredient_type: String,
-  ingredient_band: String,
+export const ingredientsSchema = new mongoose.Schema({
+	name: String,
+	category_id: Number,
+	is_allowed: Boolean
 });
 
-const IngredientsModel = mongoose.model("Ingredients", ingredientsSchema);
+const IngredientsModel = mongoose.model('Ingredients', ingredientsSchema);
 export default IngredientsModel;
