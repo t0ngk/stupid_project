@@ -1,5 +1,10 @@
 <script>
     let num = 3
+    async function mix() {
+        console.log('mixxings')
+        const res = await fetch('/api/ingredients')
+        console.log(res)
+    }
 </script>
 
 <div class="flex flex-col items-center justify-center w-full h-screen gap-y-6">
@@ -23,7 +28,7 @@
             </div>
         </div>
     </div>
-    <button class="btn btn-primary px-36 text-white py-2 rounded-xl capitalize font-normal">
+    <button on:click={ () => mix(   )} class="btn btn-primary px-36 text-white py-2 rounded-xl capitalize font-normal">
         Mix
     </button>   
 </div>
