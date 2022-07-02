@@ -1,12 +1,20 @@
-import mongoose from 'mongoose';
+import mongoose, { Model } from 'mongoose';
 
-const commentSchema = new mongoose.Schema({
-	comment_rating: Number,
+interface IComment {
+	comment_rating: number;
+	comment_by: string;
+	comment_post_id: string;
+	created_at: Date;
+	comment_content: string;
+}
+
+const commentSchema = new mongoose.Schema<IComment>({
+	comment_rating: number,
 	comment_by: String,
 	comment_post_id: String,
 	created_at: Date,
 	comment_content: String
 });
 
-const CommentModel = new mongoose.model('Comments', commentSchema);
+const CommentModel: Model<IComment> = mongoose.model('Comments', commentSchema);
 export default CommentModel;

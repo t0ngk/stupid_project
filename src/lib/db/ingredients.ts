@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 export const ingredientsSchema = new mongoose.Schema({
 	name: String,
-	category_id: {
+	category: {
 		type: String,
 		enum: [
 			'Beer',
@@ -20,7 +20,10 @@ export const ingredientsSchema = new mongoose.Schema({
 			'Misc'
 		]
 	},
-	is_allowed: Boolean
+	is_allowed: {
+		type: Boolean,
+		default: true
+	}
 });
 
 const IngredientsModel = mongoose.model('Ingredients', ingredientsSchema);
