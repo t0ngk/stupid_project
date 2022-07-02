@@ -1,7 +1,8 @@
 [
     {
         "name": "Singha",
-        "category": "Beer"
+        "category": "Beer",
+        "image_path": "/liquors/singha.png"
     },
     {
         "name": "Chang",
