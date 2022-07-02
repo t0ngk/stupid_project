@@ -1,6 +1,6 @@
 import mongoose, { Model } from 'mongoose';
 
-interface IPost {
+export interface IPost {
 	ref_id: string;
 	post_name: string;
 	ingredients: string;
