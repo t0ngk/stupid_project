@@ -18,14 +18,14 @@
 				goto('/age');
 			}else{
 				localStorage.setItem('agePass', 'true');
-				goto('/login');
+				goto('/signin');
 			}
 		}
 	}
 
 	onMount(() => {
 		if (localStorage.getItem('agePass') === 'true') {
-			goto('/login');
+			goto('/signin');
 		}
 		if (localStorage.getItem('agePass') === 'false' && localStorage.getItem('agePass') !== null) {
 			goto('/age');
