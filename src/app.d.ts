@@ -13,3 +13,4 @@ declare namespace App {
 declare module '@fontawsome/free-solid-svg-icons/index.es' {
 	export * from '@fontawsome/free-solid-svg-icons/';
 }
+
