@@ -57,7 +57,7 @@
     )
 
 </script>
-<div class="w-full min-h-screen flex flex-around gap-x-16 pt-12 px-12">
+<div class="bg-white w-full min-h-screen flex flex-around gap-x-16 pt-12 px-12">
     <div class="w-3/5 grid grid-cols-2 grid-rows-2 gap-x-12 gap-y-6 pt-12">
         {#each ingredients as ingredient}
             <Card name={ingredient.name} path={ingredient.path} />

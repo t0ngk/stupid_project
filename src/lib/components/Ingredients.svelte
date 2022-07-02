@@ -23,7 +23,6 @@ import Card from "./micro/Card.svelte"
 
     let filterCategories : string[] = []
 
-    console.log(ingredients)
 
     // onMount( async () => {
     //     const res = await fetch('/api/ingredient')

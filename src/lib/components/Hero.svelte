@@ -9,7 +9,7 @@ import { goto } from '$app/navigation';
 		<img src={hero} class="transform translate-x-80 -translate-y-24 blur-lg scale-75" alt="hero drink assets" />
 	</div>
 	<div class="flex flex-col items-center gap-y-6 z-10">
-		<h1 class="text-6xl font-bold text-center">Create your own shitty drink</h1>
+		<h1 class="text-6xl font-bold text-center text-black">Create your own shitty drink</h1>
 		<p class="text-center text-sm">
 			If you're in the night, wondering what drink you should have,<br />
 			create your own monster with us. You'll regret it.

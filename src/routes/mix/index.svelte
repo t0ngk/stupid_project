@@ -5,8 +5,7 @@
     let num = 3
     async function mix() {
         console.log('mixxings')
-        // const res = await fetch('/api/ingredient')
-        // console.log(await res.json())
+        
         goto(`/comment/${num}`)
     }
 </script>

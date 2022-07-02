@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import dayjs from 'dayjs';
-	import relativeTime from 'dayjs/plugin/relativeTime';
+	import relativeTime from 'dayjs/plugin/relativeTime.js';
 	import { onMount } from 'svelte';
 
 	let age:any = null;
@@ -10,8 +10,9 @@
 	onMount(() => {
 		dayjs.extend(relativeTime);
 		age = localStorage.getItem('age');
-		when20 = dayjs().to(dayjs(age).add(20, 'year'));
+		// when20 = dayjs().to(dayjs(age).add(20, 'year'));
 		let currentAge = dayjs().diff(dayjs(age), 'year');
+		console.log(currentAge)
 		if (currentAge >= 20) {
 			goto('/signin');
 		}
@@ -28,7 +29,7 @@
 		This site will unlock when you are 20 or older.<br />
 		Why don't you just born earlier next time kid LOL.
 	</p>
-	{when20}
+	<!-- {when20} -->
 	<!-- {#if count !== null}
 		<div class="my-4">
 			<div class="grid grid-flow-col gap-5 text-center auto-cols-max">
