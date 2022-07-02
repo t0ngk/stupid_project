@@ -15,7 +15,7 @@ export const post: RequestHandler = async ({ request }) => {
 		};
 	}
 
-	if (!(await Post.findOne({ ref_id: comment_post_id }))) {
+	if (!(await Post.findOne({ comment_post_id: comment_post_id }))) {
 		return {
 			status: 404,
 			body: {

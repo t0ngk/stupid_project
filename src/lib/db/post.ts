@@ -11,13 +11,7 @@ export interface IPost {
 const postSchema = new mongoose.Schema<IPost>({
 	ref_id: String,
 	post_name: String,
-	ingredients: String,
-	// type: [
-	// 	{
-	// 		type: mongoose.Schema.Types.ObjectId,
-	// 		ref: 'Ingredients'
-	// 	}
-	// ]
+	ingredients: Array,
 	post_by: String,
 	created_at: Date
 });

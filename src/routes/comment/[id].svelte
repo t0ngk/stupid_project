@@ -1,7 +1,33 @@
+<script context="module">
+    // @ts-ignore
+    export async function load({ fetch, params }) {
+        const res = await fetch(`/api/post/${params.id}`);
+        const { data } = await res.json();
+        const getingre = data.ingredients.map((item) => {
+            return {
+                name: item.name,
+                category: item.category,
+                path: item.image_path,
+            }
+        });
+        if (res.ok) {
+            return {
+                props: {
+                    ingredients: getingre,
+                }
+            };
+        }
+        return {
+            status: res.status,
+            error: new Error(res.statusText)
+        };
+    }
+</script>
+
 <script lang="ts">
     import { page } from "$app/stores";
 
-    import {  faStar } from "@fortawesome/free-solid-svg-icons/index.es";
+    import { faStar } from "@fortawesome/free-solid-svg-icons/index.es";
     import { onMount } from "svelte";
 
 
@@ -29,32 +55,38 @@
         "With Children"
     ]
 
-    let ingredients : ingredient[] = [{
-        name : "Singha",
-        path : "/liquors/singha.png",
-        category : "Beer"
-    },{
-        name : "Singha",
-        path : "/liquors/singha.png",
-        category : "Beer"
-    },{
-        name : "Singha",
-        path : "/liquors/singha.png",
-        category : "Beer"
-    },{
-        name : "Singha",
-        path : "/liquors/singha.png",
-        category : "Beer"
-    },]
+    export let ingredients : ingredient[] = []
 
     let selectedTags : string[] = []
 
     let comment : string = ""
     let points = 4
 
-    onMount( async () => {
-        const res = await fetch(`/api/ingredient.json/${$page.params.amount}`)}
-    )
+    let payload:object = {};
+
+    $: payload = {
+        tags: selectedTags,
+        comment_content: comment,
+        comment_rating: points,
+        comment_post_id: $page.params.id,
+        comment_by: "Robot",
+    }
+
+    async function send() {
+        const res = await fetch(`/api/comment/`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(payload)
+        });
+        console.log(res);
+        console.log(await res.json());
+    }
+
+    // onMount( async () => {
+    //     const res = await fetch(`/api/ingredient.json/${$page.params.amount}`)}
+    // )
 
 </script>
 <div class="bg-white w-full min-h-screen flex flex-around gap-x-16 pt-12 px-12">
@@ -100,7 +132,9 @@
             } class="h-32 textarea textarea-primary w-full inline-block" placeholder="Describe your creation(?) here. . ."></textarea>
         </div>
         <div class="w-full flex flex-col gap-y-4">
-            <button class="grid place-items-center w-full btn btn-primary font-normal text-sm rounded-lg">
+            <button on:click={() => {
+                send()
+            }} class="grid place-items-center w-full btn btn-primary font-normal text-sm rounded-lg">
                 <h5>Publish</h5>
             </button>
             <button class=" hover:bg-gray-300 grid place-items-center w-full btn bg-white border-primary border-2 font-normal text-sm rounded-lg text-primary">

@@ -1,16 +1,62 @@
+<script context="module">
+	// @ts-ignore
+	export async function load({ fetch }) {
+		const res = await fetch('/api/ingredient.json');
+		const { data } = await res.json();
+		if (res.ok) {
+			return {
+				props: {
+					ingredientlists: data
+				}
+			};
+		}
+		return {
+			status: res.status,
+			error: new Error(res.statusText)
+		};
+	}
+</script>
+
 <script lang="ts">
+    export let ingredientlists: any;
     import Fa from 'svelte-fa/src/fa.svelte';
     import { faSortUp, faSortDown } from '@fortawesome/free-solid-svg-icons/index.es';
     import { goto } from '$app/navigation';
+    import { selectItem } from '$lib/store';
     let num = 3
+    import Ingredients from '$lib/components/Ingredients.svelte';
+	let filterCategorie: string[] = [];
+    $: $selectItem = filterCategorie;
     async function mix() {
-        console.log('mixxings')
-        
-        goto(`/comment/${num}`)
+        const res = await fetch(`/api/ingredient/${num}`,{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body:JSON.stringify({
+                restictions: $selectItem,
+            })
+        })
+        const ingredients = await res.json()
+        console.log(ingredients.data)
+        const sentPost = await fetch('/api/post.json',{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body:JSON.stringify({
+                ingredients: ingredients.data,
+                post_by: 'mix',
+            })
+        })
+        const post = await sentPost.json()
+        const info = await JSON.parse(post.data)
+        goto('/view/'+info.ref_id)
     }
 </script>
 
 <div class="flex flex-col items-center justify-center w-full h-screen gap-y-6">
+    <Ingredients bind:filterCategories={filterCategorie} ingredients={ingredientlists} />
     <h5>
         Number of ingredients you desire
     </h5>
@@ -32,6 +78,7 @@
         </div>
     </div>
     <button on:click={async () => {
+        mix();
     }} class="btn btn-primary px-36 text-white py-2 rounded-xl capitalize font-normal">
         Mix
     </button>
