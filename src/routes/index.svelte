@@ -1,7 +1,7 @@
 <script lang="ts">
 	import SveltyPicker from 'svelty-picker/src/SveltyPicker.svelte';
 	import Fa from 'svelte-fa/src/fa.svelte';
-	import { faCalendarDays } from '@fortawesome/free-solid-svg-icons';
+	import { faCalendarDays } from '@fortawesome/free-solid-svg-icons/index.es';
 	let myDate = 'DD / MM / YYYY';
 </script>
 
@@ -22,11 +22,6 @@
 </div>
 
 <style>
-	:global(.test) {
-		background-color: rgba(0, 0, 0, 0);
-		/* text-align: center; */
-		width: 100%;
-	}
 </style>
 
 <!-- <h1 class="text-3xl font-bold underline">Stupid Project</h1>
