@@ -4,13 +4,14 @@
 // for information about these interfaces
 // and what to do when importing types
 declare namespace App {
+
+
 	// interface Locals {}
 	// interface Platform {}
 	// interface Session {}
 	// interface Stuff {}
 }
 
-declare module '@fontawsome/free-solid-svg-icons/index.es' {
-	export * from '@fontawsome/free-solid-svg-icons/';
+declare module '@fortawesome/free-solid-svg-icons/index.es' {
+  export * from '@fortawesome/free-solid-svg-icons';
 }
-

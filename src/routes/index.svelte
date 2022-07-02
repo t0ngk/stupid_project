@@ -1,5 +1,4 @@
 <script lang="ts">
-	import SveltyPicker from 'svelty-picker/src/SveltyPicker.svelte';
 	import Fa from 'svelte-fa/src/fa.svelte';
 	import { faCalendarDays } from '@fortawesome/free-solid-svg-icons/index.es';
 	import { goto } from '$app/navigation';
@@ -65,5 +64,3 @@
 <div class="btn">This Btn From DaisyUI</div>
 <h1>Bind From Datepicker {myDate}</h1>
 <Fa icon={faFlag} /> -->
-<style>
-</style>
