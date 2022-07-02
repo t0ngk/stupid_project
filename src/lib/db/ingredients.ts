@@ -1,6 +1,6 @@
 import mongoose, { Model } from 'mongoose';
 
-interface IIngredient {
+export interface IIngredient {
 	name: string;
 	category: string;
 	is_allowed: boolean;
