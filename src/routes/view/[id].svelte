@@ -104,7 +104,9 @@ import Comment from "$lib/components/micro/Comment.svelte";
             <h1 class="text-black font-semibold ">
                 Comments
             </h1>
-            <Comment/>
+            {#each comments as comment}
+                <Comment points={comment.score} text={comment.text} username={comment.username} />
+            {/each}
         </div>
     </div>
 </div>
