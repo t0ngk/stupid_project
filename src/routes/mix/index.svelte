@@ -1,4 +1,6 @@
 <script>
+    import Fa from 'svelte-fa/src/fa.svelte';
+    import { faSortUp, faSortDown } from '@fortawesome/free-solid-svg-icons/index.es';
     let num = 3
     async function mix() {
         console.log('mixxings')
@@ -18,13 +20,13 @@
                 if (num >= 4) return
                 num++
             }}>
-                Up
+                <Fa icon={faSortUp}></Fa>
             </div>
             <div on:click={ () => {
                 if (num <= 2) return
                 num--
             }}>
-                Down
+                <Fa icon={faSortDown}></Fa>
             </div>
         </div>
     </div>
