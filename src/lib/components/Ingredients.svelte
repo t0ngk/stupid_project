@@ -2,6 +2,8 @@
 
     // export const list:any = [];
 
+import Card from "./micro/Card.svelte"
+
     interface ingredient {
         category : string,
         is_allow : boolean,
@@ -68,13 +70,16 @@
         {/each} -->
     </div>
     <!-- Cards -->
-    {#each ingredients as g}
+    <!-- {#each ingredients as g}
         <div>
             <h5>
-                g.
+                Beer // Category here
             </h5>
+            <div class="grid grid-cols-3 gap-y-12">
+                <Card name={} path={}  />
+            </div>
         </div>
-    {/each}
+    {/each} -->
 
 
 </div>
