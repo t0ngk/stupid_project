@@ -1,8 +1,8 @@
 <script lang="ts">
-import { page } from "$app/stores";
+    import { page } from "$app/stores";
 
-import { faFlag, faStar } from "@fortawesome/free-solid-svg-icons/index.es";
-import { onMount } from "svelte";
+    import {  faStar } from "@fortawesome/free-solid-svg-icons/index.es";
+    import { onMount } from "svelte";
 
 
     import Fa from "svelte-fa/src/fa.svelte"
@@ -52,15 +52,9 @@ import { onMount } from "svelte";
     let comment : string = ""
     let points = 4
 
-    // onMount( async () => {
-    //     const res = await fetch('/api/ingredient.json', {
-    //         method : "POST",
-    //         body : {
-    //             // amount : $page.params.amount
-    //         }
-    //     })
-
-    // })
+    onMount( async () => {
+        const res = await fetch(`/api/ingredient.json/${$page.params.amount}`)}
+    )
 
 </script>
 <div class="w-full min-h-screen flex flex-around gap-x-16 pt-12 px-12">

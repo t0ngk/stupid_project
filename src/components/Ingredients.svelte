@@ -1,9 +1,11 @@
 <script lang="ts">
+import { onMount } from "svelte";
+
+
 
     // export const list:any = [];
-    import { onMount } from "svelte";
 
-    import Card from "./micro/Card.svelte";
+    import Card from "$lib/components/micro/Card.svelte";
 
     interface ingredient {
         _id : any,
@@ -17,15 +19,17 @@
 
     let filterCategories : string[] = []
 
-    // onMount( async () => {
-    //     const res = await fetch('/api/ingredient')
-    //     ingredients = await res.json()
+    console.log(ingredients)
 
-    //     ingredients.forEach( (ingredient) => {
-    //         if (categories.includes(ingredient.category)) return
-    //         categories = [...categories, ingredient.category]
-    //     })
-    // })
+    onMount( async () => {
+        const res = await fetch('/api/ingredient')
+        ingredients = await res.json()
+
+        ingredients.forEach( (ingredient) => {
+            if (categories.includes(ingredient.category)) return
+            categories = [...categories, ingredient.category]
+        })
+    })
 </script>
 
 <!-- <div>
@@ -51,7 +55,7 @@
                 }else{
                     filterCategories = [...filterCategories, ingredient._id]
                 }
-            }} class={`${filterCategories.includes(ingredient._id) ? "rounded-full bg-primary text-white" : "rounded-full border-2 border-primary text-primary"} px-10`}>{ingredient._id}</button>
+            }} class={`${filterCategories.includes(ingredient._id) ? "rounded-full bg-primary text-white" : "rounded-full border-2 border-primary text-primary"} px-10`}>{ingredient.name.replace('_', " ")}</button>
         {/each}
         <!-- {#each categories as category}
             <button on:click={ () => {

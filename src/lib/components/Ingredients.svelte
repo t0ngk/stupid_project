@@ -1,21 +1,29 @@
 <script lang="ts">
 
     // export const list:any = [];
-    import { onMount } from "svelte";
 
-    import Card from "./micro/Card.svelte";
+import Card from "./micro/Card.svelte"
 
     interface ingredient {
+        category : string,
+        is_allow : boolean,
+        name : string,
+        _id : string
+    }
+
+    interface group {
         _id : any,
         name : string,
-        category : string 
+        ingredients : ingredient[]
     }
 
 
-    export let ingredients : ingredient[] = []
-    let categories : string[] = ['Beer', 'Gin', 'Brandy', 'Whisky', 'Rum', 'Tequila', 'Vodka', 'Liqueur', 'Soju', 'Fruit_Juice', 'Cocktail_Sweetneners', 'Softdrink', 'Misc']
+    export let ingredients : group[] = []
+    // let categories : string[] = ['Beer', 'Gin', 'Brandy', 'Whisky', 'Rum', 'Tequila', 'Vodka', 'Liqueur', 'Soju', 'Fruit_Juice', 'Cocktail_Sweetneners', 'Softdrink', 'Misc']
 
     let filterCategories : string[] = []
+
+    console.log(ingredients)
 
     // onMount( async () => {
     //     const res = await fetch('/api/ingredient')
@@ -43,7 +51,7 @@
         Ingredients
     </h1>
     <!-- Categories -->
-    <div class="w-full flex flex-wrap gap-x-4 gap-y-6 mb-12">
+    <div class="w-full flex flex-wrap gap-x-4 gap-y-3 mb-12">
         {#each ingredients as ingredient}
             <button on:click={() => {
                 if (filterCategories.includes(ingredient._id)) {
@@ -51,7 +59,7 @@
                 }else{
                     filterCategories = [...filterCategories, ingredient._id]
                 }
-            }} class={`${filterCategories.includes(ingredient._id) ? "rounded-full bg-primary text-white" : "rounded-full border-2 border-primary text-primary"} px-10`}>{ingredient._id}</button>
+            }} class={`${!filterCategories.includes(ingredient._id) ? "rounded-full bg-primary text-white" : "rounded-full border-2 border-primary text-primary line-through"} px-10`}>{ingredient._id.replace('_', " ")}</button>
         {/each}
         <!-- {#each categories as category}
             <button on:click={ () => {
@@ -62,5 +70,16 @@
         {/each} -->
     </div>
     <!-- Cards -->
+    <!-- {#each ingredients as g}
+        <div>
+            <h5>
+                Beer // Category here
+            </h5>
+            <div class="grid grid-cols-3 gap-y-12">
+                <Card name={} path={}  />
+            </div>
+        </div>
+    {/each} -->
+
 
 </div>
