@@ -4,6 +4,7 @@ interface IIngredient {
 	name: string;
 	category: string;
 	is_allowed: boolean;
+	image_path: string;
 }
 
 export const ingredientsSchema = new mongoose.Schema<IIngredient>({
@@ -29,7 +30,8 @@ export const ingredientsSchema = new mongoose.Schema<IIngredient>({
 	is_allowed: {
 		type: Boolean,
 		default: true
-	}
+	},
+	image_path: String
 });
 
 const IngredientsModel: Model<IIngredient> = mongoose.model('Ingredients', ingredientsSchema);
