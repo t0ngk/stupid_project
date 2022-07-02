@@ -13,7 +13,7 @@
 		when20 = dayjs().to(dayjs(age).add(20, 'year'));
 		let currentAge = dayjs().diff(dayjs(age), 'year');
 		if (currentAge >= 20) {
-			goto('/login');
+			goto('/signin');
 		}
 	});
 
