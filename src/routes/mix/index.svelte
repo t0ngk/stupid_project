@@ -1,11 +1,13 @@
-<script>
+<script lang="ts">
     import Fa from 'svelte-fa/src/fa.svelte';
     import { faSortUp, faSortDown } from '@fortawesome/free-solid-svg-icons/index.es';
+    import { goto } from '$app/navigation';
     let num = 3
     async function mix() {
         console.log('mixxings')
-        const res = await fetch('/api/ingredient')
-        console.log(await res.json())
+        // const res = await fetch('/api/ingredient')
+        // console.log(await res.json())
+        goto(`/comment/${num}`)
     }
 </script>
 
@@ -30,9 +32,10 @@
             </div>
         </div>
     </div>
-    <button on:click={ () => mix(   )} class="btn btn-primary px-36 text-white py-2 rounded-xl capitalize font-normal">
+    <button on:click={async () => {
+    }} class="btn btn-primary px-36 text-white py-2 rounded-xl capitalize font-normal">
         Mix
-    </button>   
+    </button>
 </div>
 
 <style scoped>

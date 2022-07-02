@@ -2,7 +2,9 @@ import type { RequestHandler } from '@sveltejs/kit';
 import Ingredient from '$lib/db/ingredients';
 
 export const get: RequestHandler = async () => {
-	const ingredients = await Ingredient.find({});
+	const ingredients = await Ingredient.aggregate([
+		{ $group: { _id: '$category', ingredients: { $push: '$$ROOT' } } },
+	]);
 	if (ingredients) {
 		return {
 			status: 200,
