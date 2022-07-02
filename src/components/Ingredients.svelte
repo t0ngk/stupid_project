@@ -13,7 +13,6 @@
     let ingredients : ingredient[] = []
     let categories : string[] = ['Beer', 'Gin', 'Brandy', 'Whisky', 'Rum', 'Tequila', 'Vodka', 'Liqueur', 'Soju', 'Fruit_Juice', 'Cocktail_Sweetneners', 'Softdrink', 'Misc']
 
-    let
     let filterCategories : string[] = []
 
     onMount( async () => {
@@ -37,8 +36,8 @@
     <div class="w-full flex flex-wrap gap-x-4 gap-y-6 mb-12">
         {#each categories as category}
             <button on:click={ () => {
-                filteredCategories = [...filterCategories, category]
-            }} class={`${filteredCategories.includes(category) ? "rounded-full bg-primary text-white" : "rounded-full border-2 border-primary text-primary"} px-10`}>
+                filterCategories = [...filterCategories, category]
+            }} class={`${filterCategories.includes(category) ? "rounded-full bg-primary text-white" : "rounded-full border-2 border-primary text-primary"} px-10`}>
                 {category}
             </button>
         {/each}
@@ -46,7 +45,5 @@
     <!-- Cards -->
 
             
-
-    </div>
 
 </div>
