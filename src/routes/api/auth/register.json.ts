@@ -15,6 +15,16 @@ export const post: RequestHandler = async ({ request }) => {
 		};
 	}
 
+	const isExist = await User.findOne({ username: username });
+	if (isExist) {
+		return {
+			status: 409,
+			body: {
+				message: 'This user already exist, please try to register again using another username.'
+			}
+		};
+	}
+
 	const encrypted_password = await bcrypt.hash(password, 10);
 
 	const user = await User.create({ username: username, password: encrypted_password });
