@@ -8,6 +8,7 @@ specifiers:
   '@typescript-eslint/parser': ^5.27.0
   autoprefixer: ^10.4.7
   daisyui: ^2.17.0
+  dayjs: ^1.11.3
   dotenv: ^16.0.1
   eslint: ^8.16.0
   eslint-config-prettier: ^8.3.0
@@ -28,6 +29,7 @@ specifiers:
 dependencies:
   '@fortawesome/free-solid-svg-icons': 6.1.1
   daisyui: 2.17.0_ugi4xkrfysqkt4c4y6hkyfj344
+  dayjs: 1.11.3
   dotenv: 16.0.1
   mongoose: 6.4.2
   svelte-fa: 3.0.2
@@ -697,6 +699,10 @@ packages:
       tailwindcss: 3.1.4
     transitivePeerDependencies:
       - ts-node
+    dev: false
+
+  /dayjs/1.11.3:
+    resolution: {integrity: sha512-xxwlswWOlGhzgQ4TKzASQkUhqERI3egRNqgV4ScR8wlANA/A9tZ7miXa44vTTKEq5l7vWoL5G57bG3zA+Kow0A==}
     dev: false
 
   /debug/4.3.4:

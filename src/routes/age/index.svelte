@@ -1,38 +1,23 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-
+	import dayjs from 'dayjs';
+	import relativeTime from 'dayjs/plugin/relativeTime';
 	import { onMount } from 'svelte';
 
-	let birthUnix: string | null = null;
-	let birthSecond: number | null = null;
-	let agePass: string | null = null;
-	let count: number | null = null;
-	const unixNeeded = 20 * 365 * 24 * 60 * 60 * 1000;
+	let age:any = null;
+	let when20:any = null;
 
 	onMount(() => {
-		birthUnix = localStorage.getItem('age');
-		agePass = localStorage.getItem('agePass');
-		let currentDate = new Date();
-		let currentDateUnix = currentDate.getTime();
-		if (agePass !== 'false') goto('/');
-		if (!birthUnix) {
-			return goto('/');
-		} else {
-			count = unixNeeded - (currentDateUnix - parseInt(birthUnix));
-			count = Math.floor(count / 1000);
-
-			const countdown = () => {
-				setTimeout(() => {
-					if (!count) return;
-					count -= 1;
-					console.log(count);
-					console.log(Math.floor(count / 86400));
-					countdown();
-				}, 1000);
-			};
-			countdown();
+		dayjs.extend(relativeTime);
+		age = localStorage.getItem('age');
+		when20 = dayjs().to(dayjs(age).add(20, 'year'));
+		let currentAge = dayjs().diff(dayjs(age), 'year');
+		if (currentAge >= 20) {
+			goto('/signin');
 		}
 	});
+
+
 </script>
 
 <div
@@ -43,8 +28,8 @@
 		This site will unlock when you are 20 or older.<br />
 		Why don't you just born earlier next time kid LOL.
 	</p>
-	{count}
-	{#if count !== null}
+	{when20}
+	<!-- {#if count !== null}
 		<div class="my-4">
 			<div class="grid grid-flow-col gap-5 text-center auto-cols-max">
 				<div class="flex flex-col p-2 bg-neutral rounded-box text-neutral-content">
@@ -67,5 +52,5 @@
 				</div>
 			</div>
 		</div>
-	{/if}
+	{/if} -->
 </div>
