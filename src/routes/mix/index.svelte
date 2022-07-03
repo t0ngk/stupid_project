@@ -10,7 +10,7 @@
     }
 </script>
 
-<div class="flex flex-col items-center justify-center w-full h-screen gap-y-6">
+<div class="bg-white flex flex-col items-center justify-center w-full h-screen gap-y-6">
     <h5>
         Number of ingredients you desire
     </h5>

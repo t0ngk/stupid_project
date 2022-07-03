@@ -38,7 +38,7 @@ import type { IIngredient } from "$lib/db/ingredients";
     }]
 </script>
 
-<div class="min-h-screen w-full flex flex-col justify-start items-center pt-20 px-8">
+<div class="min-h-screen w-full flex flex-col justify-start items-center pt-20 px-8 gap-y-6">
     {#each Posts as Post}
         <div on:click={ () => goto(`/view/${Post.ref_id}`)} class="cursor-pointer rounded-xl bg-gray-300 flex items-center justify-start relative w-full py-8 px-8">
             <h1 class="text-5xl font-semibold">
