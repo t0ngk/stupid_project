@@ -1,35 +1,40 @@
 <script lang="ts" context="module">
 	import mongoose, { Model } from 'mongoose';
 
-    interface loadAgrs {
-        fetch: (input: RequestInfo | URL, init?: RequestInit | undefined) => Promise<Response>;
+	export interface loadAgrs {
+		fetch: (input: RequestInfo | URL, init?: RequestInit | undefined) => Promise<Response>;
 		params: { id: string };
-    }
+	}
 
-	export async function load({
-		fetch,
-		params
-	} : loadAgrs) {
+	export async function load({ fetch, params }: loadAgrs) {
 		const res = await fetch(`/api/post/${params.id}`);
-		const { data }: { data: IPost } = await res.json();
-		const getingre = data.ingredients.map((item) => {
+		try {
+			const { data }: { data: IPost } = await res.json();
+			const getingre = data.ingredients.map((item) => {
+				return {
+					name: item.name,
+					category: item.category,
+					path: item.image_path
+				};
+			});
+			if (res.ok) {
+				return {
+					props: {
+						ingredients: getingre
+					}
+				};
+			}
 			return {
-				name: item.name,
-				category: item.category,
-				path: item.image_path
+				status: res.status,
+				error: new Error(res.statusText)
 			};
-		});
-		if (res.ok) {
+		} catch (e) {
+			console.log(e);
 			return {
-				props: {
-					ingredients: getingre
-				}
+				status: res.status,
+				error: new Error(res.statusText)
 			};
 		}
-		return {
-			status: res.status,
-			error: new Error(res.statusText)
-		};
 	}
 </script>
 
@@ -42,6 +47,7 @@
 	import Fa from 'svelte-fa/src/fa.svelte';
 	import Card from '$lib/components/micro/Card.svelte';
 	import type { IPost } from '$lib/db/post';
+	import { goto } from '$app/navigation';
 
 	interface ingredient {
 		name: string;
@@ -71,20 +77,31 @@
 	let comment: string = '';
 	let points = 4;
 
-	let payload: any = {};
+	let payload: Object = {};
 
 	async function send() {
-		//ts-ignore
-		const res = await fetch(`/api/comment/`, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: {
-				...payload
-			}
-		});
-		console.log(JSON.stringify(payload));
+		try {
+			payload = {
+				tags: selectedTags,
+				comment_content: comment,
+				comment_rating: points,
+				comment_post_id: $page.params.id
+			};
+            console.log(payload);
+			const res = await fetch(`/api/comment.json`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: {
+                      data : JSON.stringify(payload)
+				}
+			});
+			goto(`/view/${payload}`);
+		} catch (e) {
+			console.log(e);
+			alert('An fatal error has occured while trying to post a comment');
+		}
 	}
 
 	// onMount( async () => {

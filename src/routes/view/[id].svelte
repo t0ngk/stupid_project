@@ -1,6 +1,5 @@
-<script context="module">
-    // @ts-ignore
-    export async function load({ fetch, params }) {
+<script lang="ts" context="module">
+    export async function load({ fetch, params } : loadAgrs) {
         const res = await fetch(`/api/post/${params.id}`);
         const res_comment = await fetch(`/api/comment/${params.id}`);
         const { data } = await res.json();
@@ -44,6 +43,7 @@
     import Comment from "$lib/components/micro/Comment.svelte";
     import { page } from "$app/stores"
     import {goto} from '$app/navigation'
+import type { loadAgrs } from "../comment/[id].svelte";
     
     interface Ingredient {
         name : string,
