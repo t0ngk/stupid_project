@@ -1,7 +1,49 @@
+<script context="module">
+    // @ts-ignore
+    export async function load({ fetch, params }) {
+        const res = await fetch(`/api/post/${params.id}`);
+        const res_comment = await fetch(`/api/comment/${params.id}`);
+        const { data } = await res.json();
+        const comment_raw = await res_comment.json();
+        const comment = comment_raw.data;
+        let getComment = comment.map((item) => {
+            return {
+                text: item.comment_content,
+                username: item.comment_by,
+                score: item.comment_rating
+            }
+        })
+        let getingre = data.ingredients.map((item) => {
+            return {
+                name: item.name,
+                category: item.category,
+                path: item.image_path,
+            }
+        });
+        if (getComment.length == 0) {
+            getComment = [{text: "This Comment is empty", score: 0, username: "Robot"}]
+        }
+        if (res.ok) {
+            return {
+                props: {
+                    ingredients: getingre,
+                    comments: getComment,
+                }
+            };
+        }
+        return {
+            status: res.status,
+            error: new Error(res.statusText)
+        };
+    }
+</script>
+
 <script lang="ts">
-import Capsule from "$lib/components/micro/Capsule.svelte"
-import Card from "$lib/components/micro/Card.svelte"
-import Comment from "$lib/components/micro/Comment.svelte";
+    import Capsule from "$lib/components/micro/Capsule.svelte"
+    import Card from "$lib/components/micro/Card.svelte"
+    import Comment from "$lib/components/micro/Comment.svelte";
+    import { page } from "$app/stores"
+    import {goto} from '$app/navigation'
     
     interface Ingredient {
         name : string,
@@ -23,16 +65,7 @@ import Comment from "$lib/components/micro/Comment.svelte";
     $: totalScore = comments.map( (comment) => comment.score).reduce( (last, current) => last + current)
 
     // Edit Here
-    let ingredients : Ingredient[]  = [{
-        name : 'Singha',
-        path : "/liquors/singha.png"
-    },{
-        name : 'Singha',
-        path : "/liquors/singha.png"
-    },{
-        name : 'Singha',
-        path : "/liquors/singha.png"
-    }]
+    export let ingredients : Ingredient[]  = []
     let tags : Tag[] = [{
         title : "Daredevil",
         amount : 3
@@ -42,22 +75,9 @@ import Comment from "$lib/components/micro/Comment.svelte";
         amount : 1
     }
 ]
-    let comments : Comment[] = [
-        {
-            username : "Supratouch Suwatno",
-            score : 3,
-            text : "Pretty shit not gonna lie"
-        },
-        {
-            username : "Supratouch Suwatno",
-            score : 3,
-            text : "Pretty shit not gonna lie"
-        },
-        {
-            username : "Supratouch Suwatno",
-            score : 3,
-            text : "Pretty shit not gonna lie"
-        },
+    export let comments : Comment[] = [
+        {text: "This is a comment", score: 2, username: "John"},
+        {text: "This is a comment", score: 1, username: "John"},
     ]
 
 </script>
@@ -101,9 +121,14 @@ import Comment from "$lib/components/micro/Comment.svelte";
             {/if}
         </div>
         <div class="flex flex-col gap-y-2">
-            <h1 class="text-black font-semibold ">
-                Comments
-            </h1>
+            <div class="flex justify-between items-center">
+                <h1 class="text-black font-semibold ">
+                    Comments
+                </h1>
+                <div class="btn" on:click={() => {
+                    goto(`/comment/${$page.params.id}`)
+                }}>Add Comment</div>
+            </div>
             {#each comments as comment}
                 <Comment points={comment.score} text={comment.text} username={comment.username} />
             {/each}

@@ -14,10 +14,10 @@ export const get: RequestHandler = async () => {
 	};
 };
 
-export const post: RequestHandler = async ({ request }: { request: Request }) => {
+export const post: RequestHandler = async ({ request }) => {
 	try {
 		const body = await request.json();
-		const { post_name, ingredients, post_by } = body;
+		const { ingredients, post_by } = body;
 
 		if (!ingredients && !post_by) {
 			return {
@@ -28,29 +28,21 @@ export const post: RequestHandler = async ({ request }: { request: Request }) =>
 			};
 		}
 
-		let payload = { created_at: new Date(), ...body };
 		let ref_id = nanoid(8);
 
-		const existingPost = await Post.findOne<IPost>({
-			ref_id
-		});
-
-		if (existingPost) {
-			return {
-				status: 200,
-				body: {
-					data: JSON.stringify(existingPost)
-				}
-			};
-		} else {
-			const post = await Post.create(payload);
-			return {
-				status: 200,
-				body: {
-					data: JSON.stringify(post)
-				}
-			};
+		while (await Post.findOne({ ref_id: ref_id })) {
+			ref_id = nanoid(8);
 		}
+
+		const payload = { created_at: new Date(), ref_id: ref_id, ...body };
+
+		const post = await Post.create(payload);
+		return {
+			status: 200,
+			body: {
+				data: post
+			}
+		};
 	} catch (e) {
 		console.log(e);
 		return {

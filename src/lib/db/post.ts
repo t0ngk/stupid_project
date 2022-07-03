@@ -1,10 +1,9 @@
 import mongoose, { Model } from 'mongoose';
-import type { IIngredient } from './ingredients';
 
 export interface IPost {
 	ref_id: string;
 	post_name: string;
-	ingredients: IIngredient[];
+	ingredients: string;
 	post_by: string;
 	created_at: Date;
 }
@@ -12,14 +11,7 @@ export interface IPost {
 const postSchema = new mongoose.Schema<IPost>({
 	ref_id: String,
 	post_name: String,
-	ingredients: {
-		type: [
-			{
-				type: mongoose.Schema.Types.ObjectId,
-				ref: 'Ingredients'
-			}
-		]
-	},
+	ingredients: Array,
 	post_by: String,
 	created_at: Date
 });

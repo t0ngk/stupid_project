@@ -1,23 +1,20 @@
 <script lang="ts">
-import { onMount } from "svelte";
+// @ts-nocheck
 
+import { onMount } from "svelte";
+import { selectItem } from "$lib/store";
 
 
     // export const list:any = [];
 
     import Card from "$lib/components/micro/Card.svelte";
 
-    interface ingredient {
-        _id : any,
-        name : string,
-        category : string 
-    }
 
 
-    export let ingredients : ingredient[] = []
-    let categories : string[] = ['Beer', 'Gin', 'Brandy', 'Whisky', 'Rum', 'Tequila', 'Vodka', 'Liqueur', 'Soju', 'Fruit_Juice', 'Cocktail_Sweetneners', 'Softdrink', 'Misc']
+    export let ingredients = []
+    let categories = ['Beer', 'Gin', 'Brandy', 'Whisky', 'Rum', 'Tequila', 'Vodka', 'Liqueur', 'Soju', 'Fruit_Juice', 'Cocktail_Sweetneners', 'Softdrink', 'Misc']
 
-    let filterCategories : string[] = []
+    export let filterCategories:String[] = []
 
 
     onMount( async () => {
@@ -54,7 +51,9 @@ import { onMount } from "svelte";
                 }else{
                     filterCategories = [...filterCategories, ingredient._id]
                 }
-            }} class={`${filterCategories.includes(ingredient._id) ? "rounded-full bg-primary text-white" : "rounded-full border-2 border-primary text-primary"} px-10`}>{ingredient.name.replace('_', " ")}</button>
+                $selectItem = [...filterCategories]
+            }} 
+            class={`${filterCategories.includes(ingredient._id) ? "rounded-full bg-primary text-white" : "rounded-full border-2 border-primary text-primary"} px-10`}>{ingredient.name.replace('_', " ")}</button>
         {/each}
         <!-- {#each categories as category}
             <button on:click={ () => {

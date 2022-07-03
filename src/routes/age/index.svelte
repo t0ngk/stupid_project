@@ -12,7 +12,6 @@
 		age = localStorage.getItem('age');
 		// when20 = dayjs().to(dayjs(age).add(20, 'year'));
 		let currentAge = dayjs().diff(dayjs(age), 'year');
-		console.log(currentAge)
 		if (currentAge >= 20) {
 			goto('/signin');
 		}

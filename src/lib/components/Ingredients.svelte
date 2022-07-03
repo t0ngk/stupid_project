@@ -21,7 +21,7 @@ import Card from "./micro/Card.svelte"
     export let ingredients : group[] = []
     // let categories : string[] = ['Beer', 'Gin', 'Brandy', 'Whisky', 'Rum', 'Tequila', 'Vodka', 'Liqueur', 'Soju', 'Fruit_Juice', 'Cocktail_Sweetneners', 'Softdrink', 'Misc']
 
-    let filterCategories : string[] = []
+    export let filterCategories : string[] = []
 
 
     // onMount( async () => {
