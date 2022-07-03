@@ -59,8 +59,8 @@ const handleSignIn = async () => {
 			/>
 		</div>
 		<div class="flex flex-col gap-y-2">
-			<div class="w-full py-3 bg-primary rounded-lg grid place-items-center cursor-pointer">
-				<h1 class="text-white text-lg font-semibold" on:click={handleSignIn}>Sign in</h1>
+			<div on:click={handleSignIn} class="w-full py-3 bg-primary rounded-lg grid place-items-center cursor-pointer">
+				<h1 class="text-white text-lg font-semibold" >Sign in</h1>
 			</div>
 			<a
 				href="/signup"
@@ -70,6 +70,7 @@ const handleSignIn = async () => {
 		</div>
 	</div>
 	<div
+	on:click={() => goto('/home')}
 		class="rounded-lg border-2 border-primary w-72 text-primary mx-auto text-center text-sm py-1.5 cursor-pointer"
 	>
 		Continue as a guest

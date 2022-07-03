@@ -46,7 +46,7 @@
                 },
                 body:JSON.stringify({
                     ingredients: ingredients.data,
-                    post_by: 'Anon',
+                    post_by:  localStorage.getItem("username") ?? 'Anon',
                 })
             })
             const post = await sentPost.json()
