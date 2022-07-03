@@ -21,6 +21,10 @@
 				goto('/signin');
 			}
 		}
+
+		if (localStorage.getItem("username")) {
+			goto("/home")
+		}
 	}
 
 	onMount(() => {

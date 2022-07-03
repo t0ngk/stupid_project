@@ -1,5 +1,36 @@
 <script>
-	let username;
+import { goto } from "$app/navigation";
+
+let username = "";
+let password = "";
+
+const handleSignIn = async () => {
+	if (!username || !password) {
+		return alert("Username or Password are missing, please try again!");
+	}
+
+	const payload = {username: username, password: password}
+
+	const res = await fetch(`/api/auth/login.json`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(payload)
+		});
+
+	const data = await res.json();
+
+	if (data.message === "User Not Found !" || data.message === "Username or Password not valid, please try again.") {
+		return alert("Username or Password is not valid, please try again!");
+	}
+
+	if (data.body.username) {
+		alert("Login Successfully! You will be redirect to home page.");
+		localStorage.setItem("username", data.body.username);
+		goto("/home");
+	}
+}
 </script>
 
 <div class="w-full h-screen flex flex-col justify-around items-center py-12 bg-white">
@@ -15,6 +46,7 @@
 			<span class="text-sm ">Username</span>
 			<input
 				type="text"
+				bind:value={username}
 				class="px-4 py-2 border-2 border-primary rounded-lg focus:outline-primary focus:outline-double cursor-pointer"
 			/>
 		</div>
@@ -22,12 +54,13 @@
 			<span class="text-sm">Back for more?</span>
 			<input
 				type="password"
+				bind:value={password}
 				class="px-4 py-2 border-2 border-primary rounded-lg focus:outline-primary focus:outline-double cursor-pointer"
 			/>
 		</div>
 		<div class="flex flex-col gap-y-2">
 			<div class="w-full py-3 bg-primary rounded-lg grid place-items-center cursor-pointer">
-				<h1 class="text-white text-lg font-semibold">Sign in</h1>
+				<h1 class="text-white text-lg font-semibold" on:click={handleSignIn}>Sign in</h1>
 			</div>
 			<a
 				href="/signup"

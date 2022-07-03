@@ -14,5 +14,15 @@ import { goto } from "$app/navigation";
         <h3 on:click={() => goto('/browse')} class="cursor-pointer">
             Browse
         </h3>
+        <h3 
+        on:click={() => {
+            alert("Signed Out !")
+            localStorage.removeItem("username");
+            goto("/signin")
+        }} 
+        class="cursor-pointer"
+        >
+            Logout !
+        </h3>
     </div>
 </div>
