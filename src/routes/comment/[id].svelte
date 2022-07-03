@@ -100,10 +100,6 @@
 			alert('An fatal error has occured while trying to post a comment');
 		}
 	}
-
-	// onMount( async () => {
-	//     const res = await fetch(`/api/ingredient.json/${$page.params.amount}`)}
-	// )
 </script>
 
 <div class="bg-white w-full min-h-screen flex flex-around gap-x-16 pt-12 px-12">

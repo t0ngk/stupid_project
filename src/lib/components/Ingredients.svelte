@@ -1,9 +1,5 @@
 <script lang="ts">
 
-    // export const list:any = [];
-
-import Card from "./micro/Card.svelte"
-
     interface ingredient {
         category : string,
         is_allow : boolean,
@@ -19,30 +15,11 @@ import Card from "./micro/Card.svelte"
 
 
     export let ingredients : group[] = []
-    // let categories : string[] = ['Beer', 'Gin', 'Brandy', 'Whisky', 'Rum', 'Tequila', 'Vodka', 'Liqueur', 'Soju', 'Fruit_Juice', 'Cocktail_Sweetneners', 'Softdrink', 'Misc']
 
     export let filterCategories : string[] = []
 
 
-    // onMount( async () => {
-    //     const res = await fetch('/api/ingredient')
-    //     ingredients = await res.json()
-
-    //     ingredients.forEach( (ingredient) => {
-    //         if (categories.includes(ingredient.category)) return
-    //         categories = [...categories, ingredient.category]
-    //     })
-    // })
 </script>
-
-<!-- <div>
-    {#each ingredients as ingredient }
-        <p>{ingredient._id}</p>
-        {#each ingredient.ingredients as item }
-            <p>{item.name}</p>
-        {/each}
-    {/each}
-</div> -->
 
 <div class="w-full flex flex-col items-center px-20 lg:px-36">
     <!-- Title -->
