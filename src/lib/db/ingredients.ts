@@ -34,5 +34,6 @@ export const ingredientsSchema = new mongoose.Schema<IIngredient>({
 	image_path: String
 });
 
-const IngredientsModel: Model<IIngredient> = mongoose.model('Ingredients', ingredientsSchema);
+const IngredientsModel: Model<IIngredient> =
+	mongoose.models.Ingredients || mongoose.model('Ingredients', ingredientsSchema);
 export default IngredientsModel;

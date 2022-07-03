@@ -16,7 +16,7 @@ const postSchema = new mongoose.Schema<IPost>({
 		type: [
 			{
 				type: mongoose.Schema.Types.ObjectId,
-				ref: 'Ingredient'
+				ref: 'Ingredients'
 			}
 		]
 	},

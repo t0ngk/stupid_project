@@ -4,7 +4,7 @@ import { goto } from '$app/navigation';
 	import hero from '$lib/assets/hero.png';
 </script>
 
-<section class="w-full h-[90vh] flex flex-col items-center justify-around py-20 relative ">
+<section class="w-full h-screen flex flex-col items-center justify-around py-20 relative ">
 	<div class="absolute inset-0 grid place-items-center overflow-hidden">
 		<img src={hero} class="transform translate-x-80 -translate-y-24 blur-lg scale-75" alt="hero drink assets" />
 	</div>

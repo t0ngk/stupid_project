@@ -7,13 +7,13 @@ interface userTag {
 	tags: ITag[];
 }
 
-interface IComment {
+export interface IComment {
 	comment_rating: number;
 	comment_by: string;
 	comment_post_id: string;
 	created_at: Date;
 	comment_content: string;
-	tags: userTag[];
+	tags: string[];
 }
 
 const commentSchema = new mongoose.Schema<IComment>({
@@ -25,16 +25,7 @@ const commentSchema = new mongoose.Schema<IComment>({
 	tags: {
 		type: [
 			{
-				owner: {
-					type: mongoose.Schema.Types.ObjectId,
-					ref: 'User'
-				},
-				tags: [
-					{
-						type: mongoose.Schema.Types.ObjectId,
-						ref: 'Tags'
-					}
-				]
+				type: String
 			}
 		]
 	}

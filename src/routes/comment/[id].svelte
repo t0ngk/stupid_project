@@ -1,5 +1,4 @@
 <script lang="ts" context="module">
-	import mongoose, { Model } from 'mongoose';
 
 	export interface loadAgrs {
 		fetch: (input: RequestInfo | URL, init?: RequestInit | undefined) => Promise<Response>;
@@ -8,8 +7,10 @@
 
 	export async function load({ fetch, params }: loadAgrs) {
 		const res = await fetch(`/api/post/${params.id}`);
+	
 		try {
 			const { data }: { data: IPost } = await res.json();
+			console.log(data)
 			const getingre = data.ingredients.map((item) => {
 				return {
 					name: item.name,
@@ -20,7 +21,7 @@
 			if (res.ok) {
 				return {
 					props: {
-						ingredients: getingre
+						ingredients: [...getingre]
 					}
 				};
 			}
@@ -42,7 +43,6 @@
 	import { page } from '$app/stores';
 
 	import { faStar } from '@fortawesome/free-solid-svg-icons/index.es';
-	import { onMount } from 'svelte';
 
 	import Fa from 'svelte-fa/src/fa.svelte';
 	import Card from '$lib/components/micro/Card.svelte';
@@ -72,14 +72,17 @@
 
 	export let ingredients: ingredient[] = [];
 
+	$: console.log(ingredients)
+
 	let selectedTags: string[] = [];
 
 	let comment: string = '';
-	let points = 4;
+	let points = 5;
 
 	let payload: Object = {};
 
 	async function send() {
+		console.log(points)
 		try {
 			payload = {
 				tags: selectedTags,
@@ -87,17 +90,14 @@
 				comment_rating: points,
 				comment_post_id: $page.params.id
 			};
-            console.log(payload);
 			const res = await fetch(`/api/comment.json`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
 				},
-				body: {
-                      data : JSON.stringify(payload)
-				}
+				body: JSON.stringify(payload)
 			});
-			goto(`/view/${payload}`);
+			goto(`/view/${$page.params.id}`);
 		} catch (e) {
 			console.log(e);
 			alert('An fatal error has occured while trying to post a comment');
