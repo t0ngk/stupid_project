@@ -1,17 +1,46 @@
 <script lang="ts" context="module">
+    import type { IComment } from "$lib/db/comments"; 
     export async function load({ fetch, params } : loadAgrs) {
         const res = await fetch(`/api/post/${params.id}`);
         const res_comment = await fetch(`/api/comment/${params.id}`);
-        const { data } = await res.json();
-        const comment_raw = await res_comment.json();
+        const { data  } : {data : IPost} = await res.json();
+        const comment_raw : { data : IComment[]} = await res_comment.json();
         const comment = comment_raw.data;
+        let tags : object = {'Beer' : 0,
+            'Pure Shit' : 0,
+            'Straight to hell' : 0,
+            'Relaxing' : 0,
+            'Daredevil' : 0,
+            'Must try' : 0,
+            'Low %' : 0,
+            'High %' : 0,
+            'Deadly' : 0,
+            'Challenging' : 0,
+            'With Friends' : 0,
+            'With Family' : 0,
+            'With Children' : 0}
         let getComment = comment.map((item) => {
+            item.tags.forEach( (tag) => {
+                if (tag in tags) {
+                    //@ts-ignore
+                    tags[tag] += 1
+                }
+            })
             return {
                 text: item.comment_content,
                 username: item.comment_by,
                 score: item.comment_rating
             }
         })
+        let _tags = []
+        for (const key in tags) {
+            //@ts-ignore
+            _tags.push({
+                title : key,
+                amount : tags[key]
+            })
+        }
+        console.log(tags)
         let getingre = data.ingredients.map((item) => {
             return {
                 name: item.name,
@@ -27,6 +56,7 @@
                 props: {
                     ingredients: getingre,
                     comments: getComment,
+                    tags : _tags
                 }
             };
         }
@@ -44,6 +74,7 @@
     import { page } from "$app/stores"
     import {goto} from '$app/navigation'
 import type { loadAgrs } from "../comment/[id].svelte";
+import type { IPost } from "$lib/db/post";
     
     interface Ingredient {
         name : string,
@@ -66,7 +97,7 @@ import type { loadAgrs } from "../comment/[id].svelte";
 
     // Edit Here
     export let ingredients : Ingredient[]  = []
-    let tags : Tag[] = [{
+    export let tags : Tag[] = [{
         title : "Daredevil",
         amount : 3
     },
@@ -89,9 +120,11 @@ import type { loadAgrs } from "../comment/[id].svelte";
                 ingredients.map( (drink) => drink.name).join(' + ')
             }
         </h1>
-        <div class="my-6 flex gap-x-2 flex-wrap">
+        <div class="my-6 flex gap-x-2 gap-y-1 flex-wrap">
             {#each tags as tag}
+                {#if tag.amount > 0}    
                 <Capsule title={tag.title} amount={tag.amount} />
+                {/if}
             {/each}
         </div>
         <div class="grid grid-cols-2 gap-x-8 gap-y-8">

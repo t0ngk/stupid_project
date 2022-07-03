@@ -25,10 +25,11 @@
     import { selectItem } from '$lib/store';
     let num = 3
     import Ingredients from '$lib/components/Ingredients.svelte';
-	let filterCategorie: string[] = [];
-    $: $selectItem = filterCategorie;
+	let filterCategories: string[] = [];
+    $: $selectItem = filterCategories;
     async function mix() {
-        const res = await fetch(`/api/ingredient/${num}`,{
+        try {
+            const res = await fetch(`/api/ingredient/${num}`,{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -36,26 +37,32 @@
             body:JSON.stringify({
                 restictions: $selectItem,
             })
-        })
-        const ingredients = await res.json()
-        const sentPost = await fetch('/api/post.json',{
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body:JSON.stringify({
-                ingredients: ingredients.data,
-                post_by: 'mix',
             })
-        })
-        const post = await sentPost.json()
-        const info = await JSON.parse(post.data)
-        goto('/view/'+info.ref_id)
+            const ingredients = await res.json()
+            const sentPost = await fetch('/api/post.json',{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body:JSON.stringify({
+                    ingredients: ingredients.data,
+                    post_by: 'Anon',
+                })
+            })
+            const post = await sentPost.json()
+            console.log(post.data)
+        goto('/comment/'+post.data.ref_id)
+        }catch(e){
+            console.log(e)
+            alert("An fatal error has occured in the system while trying to fetch data from the backend.")  
+        }
+        
+       
     }
 </script>
 
 <div class="flex flex-col items-center justify-center w-full h-screen gap-y-6">
-    <Ingredients bind:filterCategories={filterCategorie} ingredients={ingredientlists} />
+    <Ingredients bind:filterCategories ingredients={ingredientlists} />
     <h5>
         Number of ingredients you desire
     </h5>
