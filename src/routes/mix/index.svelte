@@ -38,7 +38,6 @@
             })
         })
         const ingredients = await res.json()
-        console.log(ingredients.data)
         const sentPost = await fetch('/api/post.json',{
             method: 'POST',
             headers: {

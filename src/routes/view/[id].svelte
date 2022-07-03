@@ -3,7 +3,6 @@
     export async function load({ fetch, params }) {
         const res = await fetch(`/api/post/${params.id}`);
         const res_comment = await fetch(`/api/comment/${params.id}`);
-        console.log(res_comment)
         const { data } = await res.json();
         const comment_raw = await res_comment.json();
         const comment = comment_raw.data;
