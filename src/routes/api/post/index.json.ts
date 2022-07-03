@@ -5,7 +5,7 @@ import Post from '$lib/db/post';
 const nanoid = customAlphabet('1234567890abcdef', 10);
 
 export const get: RequestHandler = async () => {
-	const posts = await Post.find({});
+	const posts = await Post.find({}).populate('ingredients');
 	return {
 		status: 200,
 		body: {

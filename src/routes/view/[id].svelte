@@ -34,13 +34,12 @@
         })
         let _tags = []
         for (const key in tags) {
-            //@ts-ignore
             _tags.push({
                 title : key,
+                //@ts-ignore
                 amount : tags[key]
             })
         }
-        console.log(tags)
         let getingre = data.ingredients.map((item) => {
             return {
                 name: item.name,
@@ -49,7 +48,7 @@
             }
         });
         if (getComment.length == 0) {
-            getComment = [{text: "This Comment is empty", score: 0, username: "Robot"}]
+            getComment = [{text: "No comment", score: 0, username: "Unknown"}]
         }
         if (res.ok) {
             return {

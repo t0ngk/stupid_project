@@ -10,7 +10,6 @@
 	
 		try {
 			const { data }: { data: IPost } = await res.json();
-			console.log(data)
 			const getingre = data.ingredients.map((item) => {
 				return {
 					name: item.name,
@@ -72,7 +71,6 @@
 
 	export let ingredients: ingredient[] = [];
 
-	$: console.log(ingredients)
 
 	let selectedTags: string[] = [];
 
@@ -82,7 +80,6 @@
 	let payload: Object = {};
 
 	async function send() {
-		console.log(points)
 		try {
 			payload = {
 				tags: selectedTags,

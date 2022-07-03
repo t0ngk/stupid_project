@@ -50,7 +50,6 @@
                 })
             })
             const post = await sentPost.json()
-            console.log(post.data)
         goto('/comment/'+post.data.ref_id)
         }catch(e){
             console.log(e)

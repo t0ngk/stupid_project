@@ -3,7 +3,6 @@
         try {
             const res = await fetch(`/api/post.json`)
             const Posts = await res.json()
-            console.log(Posts)
             return {
                 props : {
                     Posts : [...Posts.data]
@@ -58,7 +57,6 @@ import type { loadAgrs } from "../comment/[id].svelte";
 
         }]
 
-    $: console.log(Posts)
 
 </script>
 
@@ -70,7 +68,8 @@ import type { loadAgrs } from "../comment/[id].svelte";
     {/if}
     {#each Posts as Post}
         <div on:click={ () => goto(`/view/${Post.ref_id}`)} class="cursor-pointer rounded-xl bg-gray-300 flex items-center justify-start relative w-full py-8 px-8">
-            <h1 class="text-5xl font-semibold">
+            <h1 class="text-4xl font-semibold">
+                
                 {Post.ingredients?.map( (ingredient) => ingredient.name).join(" + ")}
             </h1>
             <h5 class="absolute bottom-2 right-4 font-medium text-lg opacity-80">
