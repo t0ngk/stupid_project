@@ -4,7 +4,7 @@ import Post from '$lib/db/post';
 
 export const post: RequestHandler = async ({ request }) => {
 	const body = await request.json();
-	const { comment_rating, comment_by, comment_post_id, comment_content } = body;
+	const { comment_rating, comment_by, comment_post_id, comment_content } = body.data;
 	if (!comment_rating && !comment_by && !comment_post_id && !comment_content) {
 		return {
 			status: 400,

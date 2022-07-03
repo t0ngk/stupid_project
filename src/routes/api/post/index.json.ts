@@ -1,6 +1,6 @@
 import type { RequestHandler } from '@sveltejs/kit';
 import { customAlphabet } from 'nanoid';
-import Post, { type IPost } from '$lib/db/post';
+import Post from '$lib/db/post';
 
 const nanoid = customAlphabet('1234567890abcdef', 10);
 
@@ -24,6 +24,21 @@ export const post: RequestHandler = async ({ request }) => {
 				status: 400,
 				body: {
 					message: 'Missing some required information.'
+				}
+			};
+		}
+
+		// Checking if the given recipe already exists and established in the database or not
+		const existingRecipe = await Post.findOne({
+			ingredients: { $all: ingredients }
+		});
+
+		// If already exists
+		if (existingRecipe) {
+			return {
+				status: 200,
+				body: {
+					data: existingRecipe
 				}
 			};
 		}
